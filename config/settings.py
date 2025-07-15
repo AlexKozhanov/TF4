@@ -1,6 +1,11 @@
 import os
 import sys
+
 from pathlib import Path
+from dotenv import load_dotenv
+
+# override=True - явно перезаписывай переменные окружения, если они уже объявлены
+load_dotenv(override=True)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,6 +27,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'diary',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -63,11 +71,6 @@ DATABASES = {
         'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
         'HOST': os.getenv('POSTGRES_HOST'),
         'PORT': os.getenv('POSTGRES_PORT')
-        # 'NAME': 'TF4',
-        # 'USER': 'postgres',
-        # 'PASSWORD': '123',
-        # 'HOST': 'localhost',
-        # 'PORT': '5432'
     }
 }
 if 'test' in sys.argv:
@@ -118,7 +121,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 # AUTH USER MODEL
-# AUTH_USER_MODEL = 'users.User'
+AUTH_USER_MODEL = 'users.User'
 
 
 # Подключение почты Яндекс
