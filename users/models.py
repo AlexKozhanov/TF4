@@ -10,13 +10,14 @@ class User(AbstractUser):
     """
     username = None
     email = models.EmailField(
+        max_length=100,
         unique=True,
         verbose_name='Email')
     first_name = models.CharField(
-        max_length=150,
+        max_length=100,
         verbose_name='Имя')
     last_name = models.CharField(
-        max_length=150,
+        max_length=100,
         verbose_name='Фамилия')
     phone_number = models.CharField(
         max_length=20,

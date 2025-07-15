@@ -1,0 +1,26 @@
+{% extends 'catalog/template.html' %}
+{% load my_tags %}
+{% block content %}
+<!-- Раздел2 Категории -->
+<div class="container px-4 py-5" id="featured-3"> <!-- container с текстами -->
+    <h2 class="pb-2 border-bottom text-center">Категория</h2>
+    <p class="lead text-center">Описание одной категории</p>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Заголовок карточки</h5>
+                    <p class="card-text">Наименование категории: {{ object.name }}</p>
+                    <p class="card-text">Описание: {{ object.description }}</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            <a class="btn btn-primary" href="{% url 'catalog:category_list' %}" role="button">Назад</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

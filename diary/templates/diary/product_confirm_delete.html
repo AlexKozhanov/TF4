@@ -1,0 +1,25 @@
+{% extends 'catalog/template.html' %}
+{% block content %}
+<!-- Раздел2 Категории -->
+<div class="container px-4 py-5" id="featured-3"> <!-- container с текстами -->
+    <h2 class="pb-2 border-bottom text-center">Продукты</h2>
+    <p class="lead text-center">Создай сам новый продукт</p>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4"> <!-- Разделять формы -->
+        <div class="col">
+            <form class="row" method="post" enctype="multipart/form-data">
+                <div class="'card">
+                    <p class="card-text text-center">Действительно хотите удалить {{ object.name }}</p>
+                    <div class="card-body">
+                        {% csrf_token %}
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        Удалить
+                    </button>
+                    <a class="btn btn-primary" href="{% url 'catalog:product_list' %}" role="button">Отменить</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

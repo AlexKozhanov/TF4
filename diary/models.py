@@ -6,15 +6,15 @@ NULLABLE = {"blank": True, "null": True}
 
 class Diary(models.Model):
     """
-    Класс Личный Дневник
+    Класс-модель Личный Дневник
     """
     head = models.CharField(
         max_length=100,
         verbose_name='Заголовок')
     content = models.TextField(
-        max_length=2000,
+        max_length=255,
         **NULLABLE,
-        verbose_name='Содержимое')
+        verbose_name='Содержимое дневника')
     owner = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
@@ -33,7 +33,7 @@ class Diary(models.Model):
 
 class DiaryEntries(models.Model):
     """
-    Класс Записи в Дневнике
+    Класс-модель Записи в Дневнике
     """
     head = models.CharField(
         max_length=100,

@@ -1,0 +1,35 @@
+{% extends 'catalog/template.html' %}
+{% load my_tags %}
+{% block content %}
+<!-- Раздел2 Категории -->
+<div class="container px-4 py-5" id="featured-3"> <!-- container с текстами -->
+    <h2 class="pb-2 border-bottom text-center">Категории</h2>
+    <p class="lead text-center">Продукты в категории {{ category.name }}</p>
+    <a href="{% url 'catalog:category_list' %}" class="btn btn-primary">Вернуться в Категории</a>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for object in object_list %}
+        <div class="col">
+            <div class="card shadow-sm">
+                <img src="{{ object.png | media_filter }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ object.name }}</h5><!-- Заголовок карточки -->
+                    <p class="card-text">{{ object.description }}</p>
+                    <p class="card-text">Владелец: {{ object.owner }}</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            <a class="btn btn-primary" href="{% url 'catalog:product_detail' object.pk %}" role="button">Подробнее</a>
+                            {% if perms.catalog.change_product or user == object.owner %}
+                            <a class="btn btn-primary" href="{% url 'catalog:product_update' object.pk %}" role="button">Редактировать</a>
+                            {% endif %}
+                            {% if perms.catalog.delete_product or user == object.owner %}
+                            <a class="btn btn-primary" href="{% url 'catalog:product_delete' object.pk %}" role="button">Удалить</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
