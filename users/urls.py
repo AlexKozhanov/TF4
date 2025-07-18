@@ -1,31 +1,27 @@
 from django.urls import path
 from django.contrib.auth.views import LoginView, LogoutView
 from users.apps import UsersConfig
-
+from users.views import (
+    PasswordRecoveryView, UserCreateView, UserListView, UserDetailView, UserUpdateView,
+    UserDeleteView)
 
 app_name = UsersConfig.name
 
 
+class EmailConfirmationView:
+    pass
+
+
 urlpatterns = [
-    # path('register/',
-    #      RegisterView.as_view(
-    #          template_name='idiots/register.html'),
-    #      name='register'),
-    # path('login/',
-    #      LoginView.as_view(
-    #          template_name='idiots/login.html',
-    #          # next_page='../../catalog/home/'
-    #      ),
-    #      name='login'
-    #      ),
-    # path('logout/',
-    #      # LoginView.as_view(next_page='catalog/home.html'),
-    #      LogoutView.as_view(
-    #          template_name='idiots/login.html',
-    #          # template_name=''
-    #          next_page='../../catalog/home/',
-    #          # next_page=''
-    #      ),
-    #      name='logout'
-    #      ),
+    path("login/", LoginView.as_view(template_name="login.html"), name="login"),
+    # path("logout/", user_logout, name="logout"),
+    # path("password_reset/", auth_views.PasswordResetView.as_view(), name="reset_password"),
+    # path("email-confirm/<str:token>/", email_verification, name="email-confirm"),
+    path("register/", UserCreateView.as_view(), name="register"),
+    path("users/", UserListView.as_view(), name="user_list"),
+    path("detail/<int:pk>/", UserDetailView.as_view(), name="user_detail"),
+    path("update/<int:pk>/", UserUpdateView.as_view(), name="user_update"),
+    path("delete/<int:pk>/", UserDeleteView.as_view(), name="user_delete"),
+    path("password-recovery/", PasswordRecoveryView.as_view(), name="password_recovery"),
+    # path("attempt/", cache_page(60)(MailingAttemptListView.as_view()), name="attempt"),
 ]

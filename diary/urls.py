@@ -1,22 +1,22 @@
 from django.urls import path
 from diary.apps import DiaryConfig
-
+from diary.views import (Home, Contacts, DiaryListView, DiaryDetailListView, DiaryCreateView, DiaryUpdateView,
+    DiaryDeleteView, DiaryEntriesListView, DiaryEntriesDetailListView, DiaryEntriesCreateView, DiaryEntriesUpdateView)
 
 app_name = DiaryConfig.name
 
 
 urlpatterns = [
-    # path('home/', home, name='home'),
-    # path('contacts/', contacts, name='contacts'),
-    # path('catalog/', ProductListView.as_view(), name='product_list'),
-    # path('catalog/<int:pk>/', ProductDetailListView.as_view(), name='product_detail'),
-    # path('catalog/new', ProductCreateView.as_view(), name='product_create'),
-    # path('catalog/<int:pk>/update', ProductUpdateView.as_view(), name='product_update'),
-    # path('catalog/<int:pk>/delete', ProductDeleteView.as_view(), name='product_delete'),
-    #
-    # path('catalog/category/', CategoryListView.as_view(), name='category_list'),
-    # path('catalog/category/<int:pk>/', CategoryDetailListView.as_view(), name='category_detail'),
-    # path('catalog/category/new', CategoryCreateView.as_view(), name='category_create'),
-    # path('catalog/category/<int:pk>/update', CategoryUpdateView.as_view(), name='category_update'),
-    # path('catalog/category/list/<int:category_id>/', ProductByCategoryListView.as_view(), name='category_products'),
+    path('', Home.as_view(), name='home'),
+    path('contacts/', Contacts.as_view(), name='contacts'),
+    path('diary/', DiaryListView.as_view(), name='product_list'),
+    path('diary/<int:pk>/', DiaryDetailListView.as_view(), name='product_detail'),
+    path('diary/new', DiaryCreateView.as_view(), name='product_create'),
+    path('diary/<int:pk>/update', DiaryUpdateView.as_view(), name='product_update'),
+    path('diary/<int:pk>/delete', DiaryDeleteView.as_view(), name='product_delete'),
+
+    path('diary/entries/', DiaryEntriesListView.as_view(), name='category_list'),
+    path('diary/entries/<int:pk>/', DiaryEntriesDetailListView.as_view(), name='category_detail'),
+    path('diary/entries/new', DiaryEntriesCreateView.as_view(), name='category_create'),
+    path('diary/entries/<int:pk>/update', DiaryEntriesUpdateView.as_view(), name='category_update'),
 ]
