@@ -19,7 +19,15 @@ class UserRegistrationForm(StyleFormMixin, UserCreationForm):
     class Meta:
         model = User
         template_name = "users/user_form.html"
-        fields = ("email", "password1", "password2")
+        fields = (
+            "email",
+            "password1",
+            "password2",
+            "first_name",
+            "last_name",
+            "phone_number",
+            "country",
+            "avatar")
 
     def clean_email(self):
         """

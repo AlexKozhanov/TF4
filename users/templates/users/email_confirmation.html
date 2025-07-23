@@ -1,21 +1,29 @@
-{% extends 'diary/includes/template.html' %}
-{% block content %}
-<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-    <h1 class="display-4"></h1>
-</div>
-<div class="alert alert-info" role="alert">
-    <h4 class="row justify-content-center">Письмо подтверждения отправлено!</h4>
-    <p>
-        На адрес электронной почты было отправлено письмо с подтверждением. Пожалуйста, проверьте свою
-        электронную почту и нажмите на ссылку подтверждения, чтобы завершить регистрацию.
-        Если письмо не пришло, проверьте папку спам.
-    </p>
-    <div class="row justify-content-center">
-        <div class="col-5"></div>
-        <div class="col-3">
-            <a class="btn btn-primary mt-1 " href="{% url 'diary:home' %}" role="button">Ok</a>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><!-- Кодировка страницы -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Каталог</title><!-- Заголовок -->
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css"><!-- Подключение локальных файлов стилей Bootstrap -->
+    <meta name="description" content="">
+    <meta name="author" content="Alex и контрибьюторы Bootstrap">
+    <meta name="generator" content="Hugo 0.145.0">
+
+    <meta name="theme-color" content="#712cf9">
+
+</head>
+<main class="d-flex flex-nowrap">
+    <div class="container my-5">
+        <div class="position-relative p-5 text-center text-muted bg-body border border-dashed rounded-5">
+            <h1 class="text-body-emphasis">Письмо подтверждения отправлено!</h1>
+            <p class="col-lg-6 mx-auto mb-4">
+                На адрес электронной почты было отправлено письмо с подтверждением. Пожалуйста, проверьте свою
+                электронную почту и нажмите на ссылку подтверждения, чтобы завершить регистрацию.
+                Если письмо не пришло, проверьте папку спам.
+            </p>
         </div>
-        <div class="col-4"></div>
     </div>
-</div>
-{% endblock %}
+</main>
+<script src="/static/js/bootstrap.bundle.min.js"></script><!-- Подключение локальных файлов JS Bootstrap -->
+</body><!-- Тело страницы -->
+</html>

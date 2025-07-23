@@ -7,32 +7,38 @@
 
     <div class="row g-4 py-5 row-cols-1 row-cols-lg-3"> <!-- Основной блок для работы с колонками -->
         <div class="card">
-          <h5 class="card-header text-center">Магазин</h5>
-          {% if user.is_authenticated %}
+            <h5 class="card-header text-center">Магазин</h5>
+            {% if user.is_authenticated %}
+            {% if user.first_name %}
             <p>Добро пожаловать, {{ user.first_name }}!</p>
-          {% else %}
+            {% else %}
+            <p>Добро пожаловать, Noname!</p>
+            {% endif %}
+            {% else %}
             <p>Добро пожаловать на сайт!</p>
-          {% endif %}
+            {% endif %}
         </div>
         <div class="card">
-          <h5 class="card-header">Рекомендуемые</h5>
-          <div class="card-body">
-            <h5 class="card-title">Особое обращение с заголовком</h5>
-            <p class="card-text">С вспомогательным текстом ниже в качестве естественного перехода к дополнительному контенту.</p>
-            <div class="modal-footer flex-column align-items-stretch w-100 gap-2 pb-3 border-top-0">
-                <a href="#" class="btn btn-primary">Перейти куда-нибудь</a>
+            <h5 class="card-header">Рекомендуемые</h5>
+            <div class="card-body">
+                <h5 class="card-title">Особое обращение с заголовком</h5>
+                <p class="card-text">С вспомогательным текстом ниже в качестве естественного перехода к дополнительному
+                    контенту.</p>
+                <div class="modal-footer flex-column align-items-stretch w-100 gap-2 pb-3 border-top-0">
+                    <a href="#" class="btn btn-primary">Перейти куда-нибудь</a>
+                </div>
             </div>
-          </div>
         </div>
         <div class="card">
-          <h5 class="card-header">Рекомендуемые</h5>
-          <div class="card-body">
-            <h5 class="card-title">Особое обращение с заголовком</h5>
-            <p class="card-text">С вспомогательным текстом ниже в качестве естественного перехода к дополнительному контенту.</p>
-            <div class="modal-footer flex-column align-items-stretch w-100 gap-2 pb-3 border-top-0">
-                <a href="#" class="btn btn-primary">Перейти куда-нибудь</a>
+            <h5 class="card-header">Рекомендуемые</h5>
+            <div class="card-body">
+                <h5 class="card-title">Особое обращение с заголовком</h5>
+                <p class="card-text">С вспомогательным текстом ниже в качестве естественного перехода к дополнительному
+                    контенту.</p>
+                <div class="modal-footer flex-column align-items-stretch w-100 gap-2 pb-3 border-top-0">
+                    <a href="#" class="btn btn-primary">Перейти куда-нибудь</a>
+                </div>
             </div>
-          </div>
         </div>
     </div>
 </div>

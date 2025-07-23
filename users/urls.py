@@ -3,13 +3,10 @@ from django.contrib.auth.views import LoginView, LogoutView
 from users.apps import UsersConfig
 from users.services import email_verification
 from users.views import (
-    PasswordRecoveryView, UserCreateView, UserListView, UserDetailView, UserUpdateView, UserDeleteView, UserLoginView)
+    PasswordRecoveryView, UserCreateView, UserListView, UserDetailView, UserUpdateView, UserDeleteView, UserLoginView,
+    EmailConfirmationView)
 
 app_name = UsersConfig.name
-
-
-class EmailConfirmationView:
-    pass
 
 
 urlpatterns = [
@@ -23,6 +20,7 @@ urlpatterns = [
     path("update/<int:pk>/", UserUpdateView.as_view(), name="user_update"),
     path("delete/<int:pk>/", UserDeleteView.as_view(), name="user_delete"),
 
-path("email-confirm/<str:token>/", email_verification, name="email-confirm"),
+    path("email-confirm/<str:token>/", email_verification, name="email-confirm"),
+    path("email-confirmation/", EmailConfirmationView.as_view(), name="email_confirmation", ),
     path("password-recovery/", PasswordRecoveryView.as_view(), name="password_recovery"),
 ]

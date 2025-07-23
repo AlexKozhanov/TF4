@@ -37,7 +37,7 @@ class UserCreateView(CreateView):
     """
     model = User
     form_class = UserRegistrationForm
-    success_url = reverse_lazy("users:login")
+    success_url = reverse_lazy("users:email_confirmation")
 
     def send_welcome_email(self, user_email):
         subject = 'Добро пожаловать в наш сервис!'
@@ -54,8 +54,8 @@ class UserCreateView(CreateView):
         url = f"http://{host}/users/email-confirm/{token}/"
         user.token = token
 
-        users_group = Group.objects.get(name='Пользователи')
-        user.groups.add(users_group)
+        # users_group = Group.objects.get(name='Пользователи')
+        # user.groups.add(users_group)
 
         user.save()
         send_mail(
@@ -65,11 +65,6 @@ class UserCreateView(CreateView):
             recipient_list=[user.email],
         )
         return super().form_valid(form)
-
-
-class UserLoginView(LoginView):
-    model = User
-    form_class = UserLoginForm
 
 
 class UserListView(ListView):
@@ -141,6 +136,21 @@ class UserDeleteView(LoginRequiredMixin, DeleteView):
     #     send_mail(subject, message, from_email, recipient_list)
 
 
+class UserLoginView(LoginView):
+    model = User
+    form_class = UserLoginForm
+
+
+class EmailConfirmationView(TemplateView):
+    model = User
+    template_name = "users/email_confirmation.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Письмо активации отправлено"
+        return context
+
+
 class UserPasswordResetConfirmView(SuccessMessageMixin, PasswordResetConfirmView):
     """Представление установки нового пароля"""
 
@@ -154,7 +164,7 @@ class UserPasswordResetConfirmView(SuccessMessageMixin, PasswordResetConfirmView
         context["title"] = "Установить новый пароль"
         return context
 
-# flake8: noqa
+
 class UserForgotPasswordView(SuccessMessageMixin, PasswordResetView):
     """Представление по сбросу пароля по почте"""
 
