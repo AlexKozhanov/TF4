@@ -1,9 +1,9 @@
 from django.core.management import BaseCommand
-from idiots.models import Idiots
+from users.models import User
 
 class Command(BaseCommand):
     def handle(self, *args, **kwargs):
-        user = Idiots.objects.create(email="admin@example.com")
+        user = User.objects.create(email="admin@example.com")
         user.set_password("123")
         user.is_active = True
         user.is_staff = True

@@ -1,13 +1,12 @@
-{% extends 'catalog/template.html' %}
+{% extends 'diary/includes/template.html' %}
 {% block title %}Register{% endblock %}
 
 {% block content %}
 <!-- Раздел2 Категории -->
-<div class="container px-4 py-5" id="featured-3"> <!-- container с текстами -->
+<div class="container px-4 py-5" id="featured-3"><!-- container с текстами -->
     <h2 class="pb-2 border-bottom text-center">Регистрация</h2>
     <p class="lead text-center">Форма для работы</p>
-
-    <form class="row" method="post" enctype="multipart/form-data"> <!-- Разделять формы -->
+    <form class="row" method="post" enctype="multipart/form-data"><!-- Разделять формы -->
         <div class="col-6">
                 <form method="post">
                     {% csrf_token %}
@@ -16,7 +15,7 @@
                     <button type="submit" class="btn btn-primary">
                         Регистрация
                     </button>
-                    <a href="{% url 'catalog:home' %}">Отмена</a>
+                    <a href="{% url 'diary:home' %}">Отмена</a>
                 </form>
 <!--            <div class="card">-->
 <!--                <div class="card-body">-->

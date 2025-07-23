@@ -24,12 +24,9 @@ TemplateView,
 
 from config.settings import EMAIL_HOST_USER
 from users.forms import (
-    UserRegistrationForm,
-    UserUpdateForm,
+    UserRegistrationForm, UserUpdateForm,
 
-    UserForgotPasswordForm,
-    UserSetNewPasswordForm,
-    PasswordRecoveryForm,)
+    UserForgotPasswordForm, UserSetNewPasswordForm, PasswordRecoveryForm, UserLoginForm, )
 from users.models import User
 
 
@@ -42,37 +39,37 @@ class UserCreateView(CreateView):
     form_class = UserRegistrationForm
     success_url = reverse_lazy("users:login")
 
-    def form_valid(self, form):
-        idiot = form.save()
-        self.send_welcome_email(idiot.email)
-        return super().form_valid(form)
-
-    def send_welcome_email(self, idiot_email):
+    def send_welcome_email(self, user_email):
         subject = 'Добро пожаловать в наш сервис!'
         message = 'Спасибо т**е, что зарегистрировался в нашем сервисе!'
         from_email = 'iVasya2033@yandex.ru'
-        recipient_list = [idiot_email, ]
+        recipient_list = [user_email, ]
         send_mail(subject, message, from_email, recipient_list)
 
-    # def form_valid(self, form):
-    #     user = form.save()
-    #     user.is_active = False
-    #     token = secrets.token_hex(16)
-    #     host = self.request.get_host()
-    #     url = f"http://{host}/users/email-confirm/{token}/"
-    #     user.token = token
-    #
-    #     users_group = Group.objects.get(name='Пользователи')
-    #     user.groups.add(users_group)
-    #
-    #     user.save()
-    #     send_mail(
-    #         subject="Подтверждение почты",
-    #         message=f"Здравствуйте, перейдите по ссылке для подтверждения почты: {url} ",
-    #         from_email=EMAIL_HOST_USER,
-    #         recipient_list=[user.email],
-    #     )
-    #     return super().form_valid(form)
+    def form_valid(self, form):
+        user = form.save()
+        user.is_active = False
+        token = secrets.token_hex(16)
+        host = self.request.get_host()
+        url = f"http://{host}/users/email-confirm/{token}/"
+        user.token = token
+
+        users_group = Group.objects.get(name='Пользователи')
+        user.groups.add(users_group)
+
+        user.save()
+        send_mail(
+            subject="Подтверждение почты",
+            message=f"Здравствуйте, перейдите по ссылке для подтверждения почты: {url} ",
+            from_email=EMAIL_HOST_USER,
+            recipient_list=[user.email],
+        )
+        return super().form_valid(form)
+
+
+class UserLoginView(LoginView):
+    model = User
+    form_class = UserLoginForm
 
 
 class UserListView(ListView):
@@ -81,6 +78,9 @@ class UserListView(ListView):
     """
     model = User
     template_name = "users/user_list.html"
+
+    # def test_func(self):
+    #     return self.request.user.is_superuser
 
 
 class UserDetailView(LoginRequiredMixin, DetailView):
@@ -98,6 +98,9 @@ class UserDetailView(LoginRequiredMixin, DetailView):
 
 
 class UserUpdateView(LoginRequiredMixin, UpdateView):
+    """
+    Модель Изменения пользователя.
+    """
     model = User
     form_class = UserUpdateForm
 
@@ -105,7 +108,7 @@ class UserUpdateView(LoginRequiredMixin, UpdateView):
         if self.request.user.is_superuser:
             return reverse_lazy("users:users")
         else:
-            return reverse_lazy("mailing:index")
+            return reverse_lazy("diary:home")
 
     def get_object(self, queryset=None):
         self.object = super().get_object(queryset)
@@ -121,7 +124,7 @@ class UserDeleteView(LoginRequiredMixin, DeleteView):
         if self.request.user.is_superuser:
             return reverse_lazy("users:users")
         else:
-            return reverse_lazy("mailing:index")
+            return reverse_lazy("diary:home")
 
     def get_object(self, queryset=None):
         self.object = super().get_object(queryset)
@@ -169,7 +172,7 @@ class UserForgotPasswordView(SuccessMessageMixin, PasswordResetView):
 
 
 class PasswordRecoveryView(FormView):
-    template_name = "password_recovery.html"
+    template_name = "users/password_recovery.html"
     form_class = PasswordRecoveryForm
     success_url = reverse_lazy("users:login")
 

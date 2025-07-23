@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><!-- Кодировка страницы -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Каталог</title> <!-- Заголовок -->
+    <title>Каталог</title><!-- Заголовок -->
     <link rel="stylesheet" href="/static/css/bootstrap.min.css"><!-- Подключение локальных файлов стилей Bootstrap -->
     <meta name="description" content="">
     <meta name="author" content="Alex и контрибьюторы Bootstrap">
@@ -50,25 +50,25 @@
         <ul class="nav nav-pills flex-column mb-auto"><!-- Список сайтов -->
             <li class="nav-item">
                 <a href="{% url 'diary:home' %}" class="nav-link link-body-emphasis">
-                    <img src="/static/icons/bootstrap.svg" alt="Bootstrap" width="32" height="32">
+                    <img src="/static/image/bootstrap.svg" alt="Bootstrap" width="32" height="32">
                     Главная
                 </a>
             </li>
             <li>
-                <a href="{% url 'diary:category_list' %}" class="nav-link link-body-emphasis">
-                    <img src="/static/icons/bootstrap.svg" alt="Bootstrap" width="32" height="32">
+                <a href="{% url 'diary:entries_list' %}" class="nav-link link-body-emphasis">
+                    <img src="/static/image/bootstrap.svg" alt="Bootstrap" width="32" height="32">
                     Категории
                 </a>
             </li>
             <li>
-                <a href="{% url 'diary:product_list' %}" class="nav-link link-body-emphasis">
-                    <img src="/static/icons/bootstrap.svg" alt="Bootstrap" width="32" height="32">
+                <a href="{% url 'diary:diary_list' %}" class="nav-link link-body-emphasis">
+                    <img src="/static/image/bootstrap.svg" alt="Bootstrap" width="32" height="32">
                     Продукты
                 </a>
             </li>
             <li>
                 <a href="{% url 'diary:contacts' %}" class="nav-link link-body-emphasis">
-                    <img src="/static/icons/bootstrap.svg" alt="Bootstrap" width="32" height="32">
+                    <img src="/static/image/bootstrap.svg" alt="Bootstrap" width="32" height="32">
                     Контакты
                 </a>
             </li>
@@ -76,10 +76,11 @@
         <hr><!-- Разделитель -->
         <div class="dropdown"><!-- Панель пользователя -->
             <a href="#" class="d-flex align-items-center link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="/static/img/cat.jpg" alt="" width="32" height="32" class="rounded-circle me-2">
                 {% if user.is_authenticated %}
+                <img src="/static/image/person-circle.svg" alt="" width="32" height="32" class="rounded-circle me-2">
                 <strong>{{ user.first_name }}</strong>
                 {% else %}
+                <img src="/static/image/person-circle.svg" alt="" width="32" height="32" class="rounded-circle me-2">
                 <strong>Пользователь</strong>
                 {% endif %}
             </a>
@@ -114,6 +115,5 @@
 </main>
     <!-- Подключение локальных файлов JS Bootstrap -->
     <script src="/static/js/bootstrap.bundle.min.js"></script>
-    <script src="/static/js/sidebars.js"></script>
 </body><!-- Тело страницы -->
 </html>

@@ -1,23 +1,22 @@
-{% extends 'diary/template.html' %}
+{% extends 'diary/includes/template.html' %}
 {% block content %}
 <!-- Раздел2 Категории -->
 <div class="container px-4 py-5" id="featured-3"> <!-- container с текстами -->
-    <h2 class="pb-2 border-bottom text-center">Продукты</h2>
-    <p class="lead text-center">Форма для работы с продуктами</p>
+    <h2 class="pb-2 border-bottom text-center">entries</h2>
+    <p class="lead text-center">Форма для работы с entries</p>
 
     <form class="row" method="post" enctype="multipart/form-data"> <!-- Разделять формы -->
         <div class="col-6">
             {% if object %}
-            <h1 class="mb-4">Редактирование продукта</h1>
+            <h1 class="mb-4">Редактирование категории</h1>
             {% else %}
-            <h1 class="mb-4">Создание продукта</h1>
+            <h1 class="mb-4">Создание категории</h1>
             {% endif %}
             <form method="post">
                 {% csrf_token %}
-<!--                {{ form.non_field_errors }}-->
                 {{ form.as_p }}
                 <button type="submit" class="btn btn-primary">Сохранить</button>
-                <a href="{% url 'diary:product_list' %}">Отмена</a>
+                <a href="{% url 'diary:entries_list' %}">Отмена</a>
             </form>
         </div>
     </form>

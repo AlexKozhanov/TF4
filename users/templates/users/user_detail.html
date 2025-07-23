@@ -1,4 +1,4 @@
-{% extends 'mailing/base.html' %}
+{% extends 'diary/includes/template.html' %}
 {% load users_tags %}
 {% block content %}
 <div class="album py-5 bg-body-tertiary">
@@ -17,14 +17,13 @@
                             <div class="btn-group">
                                 <a class="btn btn-primary" href="{% url 'users:update' user.pk%}"
                                    role="button">Редактировать</a>
-                                <a class="btn btn-primary" href="{% url 'mailing:index' %}"
+                                <a class="btn btn-primary" href="{% url 'diary:home' %}"
                                    role="button" style="margin-left: 5px;">Назад</a>
                                 {% if user.is_superuser %}
                                 <a class="btn btn-danger" href="#"
                                    role="button" style="margin-left: 5px;">Удалить</a>
                                 {% endif %}
                             </div>
-
                         </div>
                     </div>
                 </div>
