@@ -87,7 +87,10 @@ class DiaryDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'diary/diary_delete.html'
     success_url = reverse_lazy('diary:diary_list')  # permission_required = 'diary.delete_product'
 
-    # def get_form_class(self):  #     user = self.request.user  #     if not user.has_perm('diary.delete_product') or not user == self.object.owner:  #         raise PermissionDenied
+    # def get_form_class(self):
+    #     user = self.request.user
+    #     if not user.has_perm('diary.delete_product') or not user == self.object.owner:
+    #         raise PermissionDenied
 
 
 # --- CRUD DiaryEntries ---
@@ -95,7 +98,12 @@ class DiaryEntriesListView(LoginRequiredMixin, ListView):
     model = DiaryEntries
     template_name = 'diary/entries_list.html'  # permission_required = 'catalog.view_category'
 
-    # def get_queryset(self):  #     queryset = cache.get('category_queryset')  #     if not queryset:  #         queryset = super().get_queryset()  #         cache.set('category_queryset', queryset, 60 * 15)  #     return queryset
+    # def get_queryset(self):
+    #     queryset = cache.get('category_queryset')
+    #     if not queryset:
+    #         queryset = super().get_queryset()
+    #         cache.set('category_queryset', queryset, 60 * 15)
+    #     return queryset
 
 
 class DiaryEntriesDetailListView(LoginRequiredMixin, DetailView):

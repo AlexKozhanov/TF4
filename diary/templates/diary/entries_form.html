@@ -2,15 +2,15 @@
 {% block content %}
 <!-- Раздел2 Категории -->
 <div class="container px-4 py-5" id="featured-3"> <!-- container с текстами -->
-    <h2 class="pb-2 border-bottom text-center">entries</h2>
-    <p class="lead text-center">Форма для работы с entries</p>
+    <h2 class="pb-2 border-bottom text-center">Записи</h2>
+    <p class="lead text-center">Форма для работы с записями</p>
 
     <form class="row" method="post" enctype="multipart/form-data"> <!-- Разделять формы -->
         <div class="col-6">
             {% if object %}
-            <h1 class="mb-4">Редактирование категории</h1>
+            <h1 class="mb-4">Редактирование записи</h1>
             {% else %}
-            <h1 class="mb-4">Создание категории</h1>
+            <h1 class="mb-4">Создание записи</h1>
             {% endif %}
             <form method="post">
                 {% csrf_token %}

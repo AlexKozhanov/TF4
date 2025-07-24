@@ -1,15 +1,15 @@
 {% extends 'diary/includes/template.html' %}
 {% block content %}
-<!-- Раздел2 Категории -->
 <div class="container px-4 py-5" id="featured-3"> <!-- container с текстами -->
-    <h2 class="pb-2 border-bottom text-center">diary</h2>
-    <p class="lead text-center">Создай сам новый diary</p>
+    <h2 class="pb-2 border-bottom text-center">Дневник</h2>
+    <p class="lead text-center">Удаление</p>
 
     <div class="row row-cols-1 row-cols-md-3 g-4"> <!-- Разделять формы -->
         <div class="col">
             <form class="row" method="post" enctype="multipart/form-data">
                 <div class="'card">
                     <p class="card-text text-center">Действительно хотите удалить {{ object.name }}</p>
+                    <p class="card-text text-center">удаление приведёт к потере записей?</p>
                     <div class="card-body">
                         {% csrf_token %}
                     </div>

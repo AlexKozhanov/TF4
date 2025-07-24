@@ -1,28 +1,34 @@
 {% extends 'diary/includes/template.html' %}
 {% load my_tags %}
 {% block content %}
-<!-- Раздел2 Категории -->
 <div class="container px-4 py-5" id="featured-3"> <!-- container с текстами -->
-    <h2 class="pb-2 border-bottom text-center">Категории</h2>
-    <p class="lead text-center">Продукты в категории {{ category.name }}</p>
-    <a href="{% url 'diary:entries_list' %}" class="btn btn-primary">Вернуться в Категории</a>
+    <h2 class="pb-2 border-bottom text-center">Дневник</h2>
+    <p class="lead text-center">Все записи в дневнике {{ category.head }}</p>
+    <a href="{% url 'diary:entries_list' %}" class="btn btn-primary">Вернуться в Дневники</a>
+
     <div class="row row-cols-1 row-cols-md-3 g-4">
         {% for object in object_list %}
         <div class="col">
             <div class="card shadow-sm">
-                <img src="{{ object.png | media_filter }}">
+                <p class="card-text">красивая картинка на фоне</p>
                 <div class="card-body">
-                    <h5 class="card-title">{{ object.name }}</h5><!-- Заголовок карточки -->
-                    <p class="card-text">{{ object.description }}</p>
-                    <p class="card-text">Владелец: {{ object.owner }}</p>
+                    <h5 class="card-title">Наименование записи: {{ object.head }}</h5><!-- Заголовок карточки -->
+                    <p class="card-text">Описание: {{ object.content }}</p>
+                    <p class="card-text">views_counter: {{ object.views_counter }}</p>
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="btn-group">
-                            <a class="btn btn-primary" href="{% url 'diary:diary_detail' object.pk %}" role="button">Подробнее</a>
+                            <a class="btn btn-primary" href="{% url 'diary:diary_detail' object.pk %}"
+                               role="button">Подробнее
+                            </a>
                             {% if perms.catalog.change_product or user == object.owner %}
-                            <a class="btn btn-primary" href="{% url 'diary:diary_update' object.pk %}" role="button">Редактировать</a>
+                            <a class="btn btn-primary" href="{% url 'diary:diary_update' object.pk %}"
+                               role="button">Редактировать
+                            </a>
                             {% endif %}
                             {% if perms.catalog.delete_product or user == object.owner %}
-                            <a class="btn btn-primary" href="{% url 'diary:diary_delete' object.pk %}" role="button">Удалить</a>
+                            <a class="btn btn-primary" href="{% url 'diary:diary_delete' object.pk %}"
+                               role="button">Удалить
+                            </a>
                             {% endif %}
                         </div>
                     </div>
