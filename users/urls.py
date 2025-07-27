@@ -1,5 +1,5 @@
 from django.urls import path
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.views import LogoutView
 from users.apps import UsersConfig
 from users.services import email_verification
 from users.views import (

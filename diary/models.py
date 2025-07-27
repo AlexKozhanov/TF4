@@ -68,8 +68,8 @@ class DiaryEntries(models.Model):
         verbose_name='Дата создания')
 
     class Meta:
-        verbose_name = 'Продукт'
-        verbose_name_plural = 'Продукты'
+        verbose_name = 'Записи в дневнике'
+        verbose_name_plural = 'Записи в дневникае'
         ordering = ['head', 'content', 'owner', 'diary', 'publication_status']
 
     def __str__(self):

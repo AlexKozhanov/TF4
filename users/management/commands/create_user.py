@@ -10,9 +10,9 @@ class Command(BaseCommand):
         password = "123"
         user = User.objects.create(email=email)
         user.set_password(password)
-        user.is_active = True
-        user.is_superuser = False
-        user.is_staff = False
+        # user.is_active = True
+        # user.is_superuser = False
+        # user.is_staff = False
         users_group, created = Group.objects.get_or_create(name="Пользователи")
         user.groups.add(users_group)
         user.save()

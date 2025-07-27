@@ -1,55 +1,54 @@
 from django.core.management.base import BaseCommand
-from catalog.models import Category, Product
+from diary.models import Diary, DiaryEntries
+from users.models import User
 
 
 class Command(BaseCommand):
-    help = 'Add test books to the database'
+    help = 'Добавление данных Дневника и Записей в БД'
 
     def handle(self, *args, **options):
-        categorys = [
+        user = User.objects.get(mail='user1 @ example.com')
+        data_diary = [
             {
-                'name': 'Молочка',
-                'description': 'Молочные продукты'
-            },
-            {
-                'name': 'Выпечка',
-                'description': 'Хлобобулочные'
+                'head': 'Ежедневные мысли',
+                'content': 'Здесь я буду записывать мысли за прошедшый день',
+                'owner': user
             }
         ]
-        A = Category.objects.get(name='Молочка')
-        B = Category.objects.get(name='Выпечка')
-        products = [
+        MyDiary = Diary.objects.get(head='Ежедневные мысли')
+        data_diaryentries = [
             {
-                'name': 'Молоко',
-                'description': 'Молоко',
-                'category': A,
-                'price': '100',
-                'created_at': '2025-06-21',
-                'updated_at': '2025-06-21'
+                'head': 'Мысль1',
+                'content': '01.01 - сегодня я думал  вечности',
+                'owner': user,
+                'diary': MyDiary,
+                'publication_status': True
             },
             {
-                'name': 'Хлеб',
-                'description': 'Хлеб',
-                'category': B,
-                'price': '50',
-                'created_at': '2025-06-21',
-                'updated_at': '2025-06-21'
+                'head': 'Мысль2',
+                'content': '02.01 - сегодня я читал рассказ Дубровкий, захотелось посмотреть на огонь',
+                'owner': user,
+                'diary': MyDiary,
+                'publication_status': True
+            },
+            {
+                'head': 'Мысль2',
+                'content': '03.01 - ничего не думал, не буду публиковать',
+                'owner': user,
+                'diary': MyDiary,
+                'publication_status': False
             }
         ]
 
-        for category_data in categorys:
-            category, created = Category.objects.get_or_create(**category_data)
+        for diary in data_diary:
+            data_diary, created = Diary.objects.get_or_create(**diary)
             if created:
-                self.stdout.write(self.style.SUCCESS(f'Successfully added category: {category.name}'))
+                self.stdout.write(self.style.SUCCESS(f'Successfully added diary: {diary.head}'))
             else:
-                self.stdout.write(self.style.WARNING(f'Category already exists: {category.name}'))
-        for product_data in products:
-            product, created = Product.objects.get_or_create(**product_data)
+                self.stdout.write(self.style.WARNING(f'Category already exists: {diary.name}'))
+        for diaryentries in data_diaryentries:
+            diaryentries, created = DiaryEntries.objects.get_or_create(**diaryentries)
             if created:
-                self.stdout.write(self.style.SUCCESS(f'Successfully added product: {product.name}'))
+                self.stdout.write(self.style.SUCCESS(f'Successfully added diaryentries: {diaryentries.head}'))
             else:
-                self.stdout.write(self.style.WARNING(f'Product already exists: {product.name}'))
-
-
-[{"model": "catalog.category", "pk": 6, "fields": {"name": "Молочка", "description": "Молочные продукты"}},
- {"model": "catalog.category", "pk": 7, "fields": {"name": "Выпечка", "description": "Хлобобулочные"}}]
+                self.stdout.write(self.style.WARNING(f'Product already exists: {diaryentries.head}'))

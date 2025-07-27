@@ -28,9 +28,10 @@ class Contacts(TemplateView):
 
 # --- CRUD Diary ---
 # @method_decorator(cache_page(60 * 15), name='dispatch')
-class DiaryListView(LoginRequiredMixin, ListView):
+class DiaryListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = Diary
-    template_name = 'diary/diary_list.html'  # permission_required = 'catalog.view_product'
+    template_name = 'diary/diary_list.html'
+    permission_required = 'diary.view_product'
 
 
 # @method_decorator(cache_page(60 * 15), name='dispatch')
@@ -39,21 +40,20 @@ class DiaryDetailListView(LoginRequiredMixin, DetailView):
     form_class = DiaryForm
     template_name = 'diary/diary_detail.html'
 
-    # def get_object(self, queryset=None):
-    #     """ Счетчик просмотров """
-    #     self.object = super().get_object(queryset)
-    #     self.object.views_counter += 1
-    #     self.object.save()
-    #     return self.object
+    def get_object(self, queryset=None):
+        """ Счетчик просмотров """
+        self.object = super().get_object(queryset)
+        self.object.views_counter += 1
+        self.object.save()
+        return self.object
 
 
-class DiaryCreateView(LoginRequiredMixin, CreateView):
+class DiaryCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Diary
     form_class = DiaryForm
     template_name = 'diary/diary_form.html'
     success_url = reverse_lazy('diary:diary_list')
-
-    # permission_required = 'catalog.add_product'
+    permission_required = 'diary.add_product'
 
     def form_valid(self, form):
         user_diary = form.save()
@@ -62,41 +62,43 @@ class DiaryCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class DiaryUpdateView(LoginRequiredMixin, UpdateView):
+class DiaryUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Diary
     form_class = DiaryForm
     template_name = 'diary/diary_form.html'
     success_url = reverse_lazy('diary:diary_list')
-
-    # permission_required = 'catalog.change_product'
+    permission_required = 'diary.change_product'
 
     def get_success_url(self):
         return reverse('diary:diary_detail', args=[self.kwargs.get('pk')])
 
-    # def get_form_class(self):
-    #     user = self.request.user
-    #     if user == self.object.owner:
-    #         return ProductForm
+    def get_form_class(self):
+        user = self.request.user
+        if user == self.object.owner:
+            return DiaryForm
     #     if user.has_perm('catalog.can_unpublish_product'):
     #         return ProductModeratorForm
-    #     raise PermissionDenied
+        raise PermissionDenied
 
 
-class DiaryDeleteView(LoginRequiredMixin, DeleteView):
+class DiaryDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Diary
     template_name = 'diary/diary_delete.html'
-    success_url = reverse_lazy('diary:diary_list')  # permission_required = 'diary.delete_product'
+    success_url = reverse_lazy('diary:diary_list')
+    permission_required = 'diary.delete_product'
 
-    # def get_form_class(self):
-    #     user = self.request.user
-    #     if not user.has_perm('diary.delete_product') or not user == self.object.owner:
-    #         raise PermissionDenied
+    def get_form_class(self):
+        user = self.request.user
+        if not user.has_perm('diary.delete_product') or not user == self.object.owner:
+        # if not user == self.object.owner:
+            raise PermissionDenied
 
 
 # --- CRUD DiaryEntries ---
-class DiaryEntriesListView(LoginRequiredMixin, ListView):
+class DiaryEntriesListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = DiaryEntries
-    template_name = 'diary/entries_list.html'  # permission_required = 'catalog.view_category'
+    template_name = 'diary/entries_list.html'
+    permission_required = 'diary.view_category'
 
     # def get_queryset(self):
     #     queryset = cache.get('category_queryset')
@@ -116,25 +118,33 @@ class DiaryEntriesDetailListView(LoginRequiredMixin, DetailView):
         return self.object
 
 
-class DiaryEntriesCreateView(LoginRequiredMixin, CreateView):
+class DiaryEntriesCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = DiaryEntries
     form_class = DiaryEntriesForm
     template_name = 'diary/entries_form.html'
-    success_url = reverse_lazy('diary:entries_list')  # permission_required = 'diary.create_category'
+    success_url = reverse_lazy('diary:entries_list')
+    permission_required = 'diary.create_category'
 
 
-class DiaryEntriesUpdateView(LoginRequiredMixin, UpdateView):
+class DiaryEntriesUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = DiaryEntries
     form_class = DiaryEntriesForm
     template_name = 'diary/entries_form.html'
-    success_url = reverse_lazy('diary:entries_list')  # permission_required = 'diary.change_category'
+    success_url = reverse_lazy('diary:entries_list')
+    permission_required = 'diary.change_category'
 
-    # def get_success_url(self):  #     return reverse('catalog:product_detail', args=[self.kwargs.get('pk')])
+    def get_success_url(self):
+        return reverse('diary:diary_detail', args=[self.kwargs.get('pk')])
 
 
-class DiaryEntriesDeleteView(LoginRequiredMixin, DeleteView):
+class DiaryEntriesDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = DiaryEntries
     template_name = 'diary/entries_delete.html'
-    success_url = reverse_lazy('diary:entries_list')  # permission_required = 'diary.delete_product'
+    success_url = reverse_lazy('diary:entries_list')
+    permission_required = 'diary.delete_product'
 
-    # def get_form_class(self):  #     user = self.request.user  #     if not user.has_perm('diary.delete_product') or not user == self.object.owner:  #         raise PermissionDenied
+    def get_form_class(self):
+        user = self.request.user
+        if not user.has_perm('diary.delete_product') or not user == self.object.owner:
+        # if not user == self.object.owner:
+            raise PermissionDenied

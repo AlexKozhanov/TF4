@@ -54,8 +54,8 @@ class UserCreateView(CreateView):
         url = f"http://{host}/users/email-confirm/{token}/"
         user.token = token
 
-        # users_group = Group.objects.get(name='Пользователи')
-        # user.groups.add(users_group)
+        users_group = Group.objects.get(name='Пользователи')
+        user.groups.add(users_group)
 
         user.save()
         send_mail(
