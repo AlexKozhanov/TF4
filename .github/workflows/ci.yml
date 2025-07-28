@@ -107,8 +107,8 @@ jobs:
           ssh -T -o StrictHostKeyChecking=no \
               -o UserKnownHostsFile=/dev/null \
               ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
-          cd ~/CourseWork_8
-          git checkout develop_for_35
+          cd ~/TF4
+          git checkout develop
           git pull
           if [ -d "static" ]; then
             echo "Static folder exists."

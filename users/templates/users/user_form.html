@@ -19,7 +19,7 @@
                     {% if user.is_superuser %}
                     <a class="btn btn-primary mt-1" href="{% url 'users:user_list' %}" role="button">Отмена</a>
                     {% elif user.is_authenticated %}
-                    <a class="btn btn-primary mt-1" href="{% url 'users:detail' object.pk %}" role="button">Отмена</a>
+                    <a class="btn btn-primary mt-1" href="{% url 'users:user_detail' object.pk %}" role="button">Отмена</a>
                     {% elif user.is_authenticated == False %}
                     <a class="btn btn-primary mt-1" href="{% url 'diary:home' %}" role="button">Отмена</a>
                     {% endif %}

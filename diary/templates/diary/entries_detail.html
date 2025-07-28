@@ -1,22 +1,21 @@
 {% extends 'diary/includes/template.html' %}
 {% load my_tags %}
 {% block content %}
-<!-- Раздел2 Категории -->
 <div class="container px-4 py-5" id="featured-3"> <!-- container с текстами -->
-    <h2 class="pb-2 border-bottom text-center">entries</h2>
-    <p class="lead text-center">Описание одной entries</p>
+    <h2 class="pb-2 border-bottom text-center">Записи в Дневнике</h2>
+    <p class="lead text-center">Описание одной Записи</p>
 
     <div class="row row-cols-1 row-cols-md-3 g-4">
         <div class="col">
             <div class="card shadow-sm">
                 <div class="card-body">
                     <h5 class="card-title">Заголовок карточки</h5>
-                    <p class="card-text">Наименование записи: {{ object.name }}</p>
-                    <p class="card-text">Описание: {{ object.description }}</p>
+                    <p class="card-text">Наименование записи: {{ object.head }}</p>
+                    <p class="card-text">Описание: {{ object.content }}</p>
                     <p class="card-text">Относится к дневнику: {{ object.diary }}</p>
-                    <p class="card-text">created_at: {{ object.created_at }}</p>
+                    <p class="card-text">Дата создания: {{ object.created_at }}</p>
                     <p class="card-text">Статус публикации: {{ object.publication_status }}</p>
-                    <p class="card-text">views_counter: {{ object.views_counter }}</p>
+                    <p class="card-text">Счетчик просмотров: {{ object.views_counter }}</p>
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="btn-group">
                             <a class="btn btn-primary" href="{% url 'diary:entries_list' %}" role="button">Назад</a>

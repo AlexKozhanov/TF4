@@ -60,7 +60,7 @@ class DiaryEntriesForm(ModelForm):
 
     class Meta:
         model = DiaryEntries
-        fields = ('head', 'content', 'owner', 'diary', 'publication_status',)
+        fields = ('head', 'content', 'owner_entries', 'diary', 'publication_status',)
 
     def __init__(self, *args, **kwargs):
         super(DiaryEntriesForm, self).__init__(*args, **kwargs)
@@ -72,7 +72,7 @@ class DiaryEntriesForm(ModelForm):
             'class': 'form-control',
             'placeholder': 'Введите Содержимое дневника, кратко и если нужно'
         })
-        self.fields['owner'].widget.attrs.update({
+        self.fields['owner_entries'].widget.attrs.update({
             'class': 'form-control',
             'placeholder': 'Введите Владелец'
         })

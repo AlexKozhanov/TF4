@@ -43,9 +43,8 @@
 <main class="d-flex flex-nowrap">
     <h1 class="visually-hidden">my_html</h1>
     <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style="width: 240px;"><!-- Боковая панель -->
-        <a href="#" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-          <svg class="bi pe-none me-2" width="40" height="32" aria-hidden="true"><use xlink:href="#bootstrap"></use></svg>
-          <span class="fs-4">Боковая панель</span>
+        <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+          <span class="fs-5">Боковая панель</span>
         </a>
         <hr><!-- Разделитель -->
         <ul class="nav nav-pills flex-column mb-auto"><!-- Список сайтов -->
@@ -56,29 +55,35 @@
                 </a>
             </li>
             <li>
-                <a href="{% url 'diary:entries_list' %}" class="nav-link link-body-emphasis">
-                    <img src="/static/image/bootstrap.svg" alt="Bootstrap" width="32" height="32">
-                    Категории
-                </a>
-            </li>
-            <li>
                 <a href="{% url 'diary:diary_list' %}" class="nav-link link-body-emphasis">
                     <img src="/static/image/bootstrap.svg" alt="Bootstrap" width="32" height="32">
-                    Продукты
+                    Дневники
                 </a>
             </li>
             <li>
-                <a href="{% url 'diary:contacts' %}" class="nav-link link-body-emphasis">
+                <a href="{% url 'diary:entries_list' %}" class="nav-link link-body-emphasis">
                     <img src="/static/image/bootstrap.svg" alt="Bootstrap" width="32" height="32">
-                    Контакты
+                    Записи в Дневнике
                 </a>
             </li>
+            {% if user.is_superuser %}
+            <li>
+                <a href="{% url 'users:user_list' %}" class="nav-link link-body-emphasis">
+                    <img src="/static/image/bootstrap.svg" alt="Bootstrap" width="32" height="32">
+                    Список пользователей
+                </a>
+            </li>
+            {% endif %}
         </ul><!-- Список сайтов -->
         <hr><!-- Разделитель -->
         <div class="dropdown"><!-- Панель пользователя -->
             <a href="#" class="d-flex align-items-center link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                 {% if user.is_authenticated %}
-                    <img src="{{ user.avatar | media_filter }}" alt="" width="32" height="32" class="rounded-circle me-2">
+                    {% if user.avatar %}
+                        <img src="{{ user.avatar | media_filter }}" alt="" width="32" height="32" class="rounded-circle me-2">
+                    {% else %}
+                        <img src="/static/image/person-circle.svg" alt="" width="32" height="32" class="rounded-circle me-2">
+                    {% endif %}
                     {% if user.first_name %}
                         <strong>{{ user.first_name }}</strong>
                         {% else %}

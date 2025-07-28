@@ -7,7 +7,7 @@ class Command(BaseCommand):
     help = 'Добавление данных Дневника и Записей в БД'
 
     def handle(self, *args, **options):
-        user = User.objects.get(mail='user1 @ example.com')
+        user = User.objects.get(email='iVasya2033@yandex.ru')
         data_diary = [
             {
                 'head': 'Ежедневные мысли',
@@ -15,6 +15,12 @@ class Command(BaseCommand):
                 'owner': user
             }
         ]
+        for diaris in data_diary:
+            diary, created = Diary.objects.get_or_create(**diaris)
+            if created:
+                self.stdout.write(self.style.SUCCESS(f'Successfully added diary: {diary.head}'))
+            else:
+                self.stdout.write(self.style.WARNING(f'Category already exists: {diary.head}'))
         MyDiary = Diary.objects.get(head='Ежедневные мысли')
         data_diaryentries = [
             {
@@ -32,7 +38,7 @@ class Command(BaseCommand):
                 'publication_status': True
             },
             {
-                'head': 'Мысль2',
+                'head': 'Мысль3',
                 'content': '03.01 - ничего не думал, не буду публиковать',
                 'owner': user,
                 'diary': MyDiary,
@@ -40,15 +46,9 @@ class Command(BaseCommand):
             }
         ]
 
-        for diary in data_diary:
-            data_diary, created = Diary.objects.get_or_create(**diary)
-            if created:
-                self.stdout.write(self.style.SUCCESS(f'Successfully added diary: {diary.head}'))
-            else:
-                self.stdout.write(self.style.WARNING(f'Category already exists: {diary.name}'))
         for diaryentries in data_diaryentries:
-            diaryentries, created = DiaryEntries.objects.get_or_create(**diaryentries)
+            diaryentry, created = DiaryEntries.objects.get_or_create(**diaryentries)
             if created:
-                self.stdout.write(self.style.SUCCESS(f'Successfully added diaryentries: {diaryentries.head}'))
+                self.stdout.write(self.style.SUCCESS(f'Successfully added diaryentries: {diaryentry.head}'))
             else:
-                self.stdout.write(self.style.WARNING(f'Product already exists: {diaryentries.head}'))
+                self.stdout.write(self.style.WARNING(f'Product already exists: {diaryentry.head}'))

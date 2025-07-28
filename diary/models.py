@@ -17,7 +17,7 @@ class Diary(models.Model):
         verbose_name='Содержимое дневника')
     owner = models.ForeignKey(
         User,
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         default=None,
         **NULLABLE,
         verbose_name='Владелец')
@@ -42,14 +42,15 @@ class DiaryEntries(models.Model):
         max_length=2000,
         **NULLABLE,
         verbose_name='Содержимое')
-    owner = models.ForeignKey(
+    owner_entries = models.ForeignKey(
         User,
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         default=None,
         **NULLABLE,
         verbose_name='Владелец')
     diary = models.ForeignKey(
         Diary,
+        # on_delete=models.CASCADE,
         on_delete=models.SET_NULL,
         default=None,
         verbose_name='Дневник',
@@ -70,7 +71,7 @@ class DiaryEntries(models.Model):
     class Meta:
         verbose_name = 'Записи в дневнике'
         verbose_name_plural = 'Записи в дневникае'
-        ordering = ['head', 'content', 'owner', 'diary', 'publication_status']
+        ordering = ['head', 'content', 'owner_entries', 'diary', 'publication_status']
 
     def __str__(self):
         return self.head

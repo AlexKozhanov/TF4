@@ -5,25 +5,40 @@
     <h2 class="pb-2 border-bottom text-center">Записи в Дневнике</h2>
     <p class="lead text-center">Все Записи в Дневнике</p>
     <p>
-        <a class="btn btn-primary" href="{% url 'diary:entries_create' %}" role="button">Создать категорию</a>
-        <a class="card-text">сделать в виде блока с плюсом и вставить первым списке перед object</a>
+        <form action="{% url 'diary:entries_search' %}">
+            <input type="search" type="text" name="q" placeholder="Поиск">
+            <button type="submit">Найти</button>
+        </form>
     </p>
 
     <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col">
+            <div class="card text-center mb-3">
+                <img src="/static/image/entries.jpg" width="200" height="200" class="rounded mx-auto d-block" alt="...">
+                <div class="card-body">
+                    <a class="btn btn-primary" href="{% url 'diary:entries_create' %}" role="button">Создать Запись</a>
+                </div>
+            </div>
+        </div>
         {% for object in object_list %}
         <div class="col">
             <div class="card shadow-sm">
                 <div class="card-body">
                     <h5 class="card-title">{{ object.head }}</h5><!-- Заголовок карточки -->
+                    <p class="card-text">{{ object.content }}</p>
                     <div class="d-flex justify-content-between align-items-center">
-                        <div class="btn-group">
-                            <a class="btn btn-primary" href="{% url 'diary:entries_detail' object.pk %}"
+                        <div class="btn-group btn-group-sm" role="group" aria-label="Small button group">
+                            <a class="btn btn-outline-primary" href="{% url 'diary:entries_detail' object.pk %}"
                                role="button">
-                                Просмотр записи
+                                Просмотр
                             </a>
-                            <a class="btn btn-primary" href="{% url 'diary:entries_update' object.pk %}"
+                            <a class="btn btn-outline-primary" href="{% url 'diary:entries_update' object.pk %}"
                                role="button">
-                                Редактирование записи
+                                Редактирование
+                            </a>
+                            <a class="btn btn-outline-primary" href="{% url 'diary:entries_delete' object.pk %}"
+                               role="button">
+                                Удаление
                             </a>
                         </div>
                     </div>

@@ -23,7 +23,7 @@
                 <h5 class="card-title">Создать новый дневник</h5>
                 <p class="card-text">Перейти сразу к созданию дневника</p>
                 <div class="modal-footer flex-column align-items-stretch w-100 gap-2 pb-3 border-top-0">
-                    <a href="#" class="btn btn-primary">Перейти</a>
+                    <a href="{% url 'diary:diary_create' %}" class="btn btn-primary">Перейти</a>
                 </div>
             </div>
         </div>
@@ -33,7 +33,7 @@
                 <h5 class="card-title">Созать новую запись</h5>
                 <p class="card-text">Перейти сразу к созданию записи</p>
                 <div class="modal-footer flex-column align-items-stretch w-100 gap-2 pb-3 border-top-0">
-                    <a href="#" class="btn btn-primary">Перейти</a>
+                    <a href="{% url 'diary:entries_create' %}" class="btn btn-primary">Перейти</a>
                 </div>
             </div>
         </div>

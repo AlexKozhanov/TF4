@@ -1,6 +1,5 @@
 import secrets
 
-from django.contrib.auth import logout
 from django.contrib.auth.models import Group
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.views import LoginView, PasswordResetConfirmView, PasswordResetView
@@ -8,25 +7,22 @@ from django.contrib.messages.views import SuccessMessageMixin
 
 from django.core.exceptions import PermissionDenied
 from django.core.mail import send_mail
-from django.http import HttpResponse
-from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.utils.crypto import get_random_string
 from django.views.generic import (
     DetailView,
     CreateView,
-ListView,
-UpdateView,
+    ListView,
+    UpdateView,
     DeleteView,
     FormView,
-TemplateView,
-    )
+    TemplateView,)
 
 from config.settings import EMAIL_HOST_USER
 from users.forms import (
     UserRegistrationForm, UserUpdateForm,
-
-    UserForgotPasswordForm, UserSetNewPasswordForm, PasswordRecoveryForm, UserLoginForm, )
+    UserForgotPasswordForm, UserSetNewPasswordForm,
+    PasswordRecoveryForm, UserLoginForm, )
 from users.models import User
 
 
@@ -67,15 +63,15 @@ class UserCreateView(CreateView):
         return super().form_valid(form)
 
 
-class UserListView(ListView):
+class UserListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
     """
     Модель просмотра пользователя.
     """
     model = User
     template_name = "users/user_list.html"
 
-    # def test_func(self):
-    #     return self.request.user.is_superuser
+    def test_func(self):
+        return self.request.user.is_superuser
 
 
 class UserDetailView(LoginRequiredMixin, DetailView):
@@ -101,7 +97,7 @@ class UserUpdateView(LoginRequiredMixin, UpdateView):
 
     def get_success_url(self):
         if self.request.user.is_superuser:
-            return reverse_lazy("users:users")
+            return reverse_lazy("users:user_list")
         else:
             return reverse_lazy("diary:home")
 

@@ -11,6 +11,7 @@ class DiaryAdmin(admin.ModelAdmin):
 
 @admin.register(DiaryEntries)
 class DiaryEntriesAdmin(admin.ModelAdmin):
-    list_display = [f.name for f in DiaryEntries._meta.fields]
+    # list_display = [f.name for f in DiaryEntries._meta.fields]
+    list_display = ('id', 'head', 'content', 'owner_entries', 'diary')
     list_filter = ('head',)
     search_fields = ('head',)
