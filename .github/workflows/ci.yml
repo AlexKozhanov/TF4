@@ -31,9 +31,9 @@ jobs:
       postgres:
         image: postgres:13
         env:
+          POSTGRES_DB: test_db
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: 123
-          POSTGRES_DB: test_db
           POSTGRES_HOST: localhost
           POSTGRES_PORT: 5432
         ports:
@@ -46,9 +46,9 @@ jobs:
 
     env:
       SECRET_KEY: ${{secrets.SECRET_KEY}}
+      POSTGRES_DB: test_db
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 123
-      POSTGRES_DB: test_db
       POSTGRES_HOST: localhost
       POSTGRES_PORT: 5432
 
