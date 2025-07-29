@@ -1,4 +1,5 @@
 import os
+import sys
 
 from pathlib import Path
 from dotenv import load_dotenv
@@ -72,13 +73,13 @@ DATABASES = {
         'PORT': os.getenv('POSTGRES_PORT')
     }
 }
-# if 'test' in sys.argv:
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.sqlite3',
-#             'NAME': BASE_DIR / 'test_db_sqlite3',
-#         }
-#     }
+if 'test' in sys.argv:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'test_db_sqlite3',
+        }
+    }
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
