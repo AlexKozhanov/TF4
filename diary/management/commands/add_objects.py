@@ -26,21 +26,21 @@ class Command(BaseCommand):
             {
                 'head': 'Мысль1',
                 'content': '01.01 - сегодня я думал  вечности',
-                'owner': user,
+                'owner_entries': user,
                 'diary': MyDiary,
                 'publication_status': True
             },
             {
                 'head': 'Мысль2',
                 'content': '02.01 - сегодня я читал рассказ Дубровкий, захотелось посмотреть на огонь',
-                'owner': user,
+                'owner_entries': user,
                 'diary': MyDiary,
                 'publication_status': True
             },
             {
                 'head': 'Мысль3',
                 'content': '03.01 - ничего не думал, не буду публиковать',
-                'owner': user,
+                'owner_entries': user,
                 'diary': MyDiary,
                 'publication_status': False
             }
