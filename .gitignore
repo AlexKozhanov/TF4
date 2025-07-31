@@ -140,7 +140,7 @@ dmypy.json
 .pytype/
 
 # django static
-.staticfiles/
+staticfiles/
 
 # Cython debug symbols
 cython_debug/
