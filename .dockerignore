@@ -1,0 +1,11 @@
+**
+!config
+!diary
+!nginx
+!static
+!staticfiles
+!users
+!manage.py
+!poetry.lock
+!pyproject.toml
+!requirements.txt

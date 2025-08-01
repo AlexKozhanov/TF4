@@ -1,0 +1,48 @@
+{% extends 'diary/includes/template.html' %}
+{% block content %}
+{% load my_tags %}
+<div class="container marketing mt-5">
+    <div class="row">
+        <div class="table-responsive small">
+            <h2>Список пользователей </h2>
+            <table class="table table-success table-striped">
+                <thead>
+                <tr>
+                    <th>email</th>
+                    <th>Имя</th>
+                    <th>Фамилия</th>
+                    <th>Телефон</th>
+                    <th>Страна</th>
+                    <th>Администратор</th>
+                    <th>Активность</th>
+                    <th>Последнее подключение</th>
+                    <th>Действия</th>
+                </tr>
+                </thead>
+                {% for object in object_list %}
+                <tr>
+                    <td>{{ object.email }}</td>
+                    <td>{{ object.first_name }}</td>
+                    <td>{{ object.last_name }}</td>
+                    <td>{{ object.phone_number }}</td>
+                    <td>{{ object.country }}</td>
+                    <td>{{ object.is_superuser|yesno:"Да, Нет"}}</td>
+                    <td>
+                        {{object.is_active|yesno:"Активный, Не активный"}}
+                    </td>
+                    <td>{{ object.last_login }}</td>
+                    <td>
+                        <a class="btn btn-primary btn-sm"
+                           href="{% url 'users:user_detail' object.pk%}">Посмотреть</a>
+                        <a class="btn btn-primary btn-sm"
+                           href="{% url 'users:user_update' object.pk%}">Редактировать</a>
+                        <a class="btn btn-danger btn-sm"
+                           href="{% url 'users:user_delete' object.pk%}">Удалить</a>
+                    </td>
+                </tr>
+                {% endfor%}
+            </table>
+        </div><!-- /.row -->
+    </div><!-- /.container -->
+</div>
+{% endblock %}}

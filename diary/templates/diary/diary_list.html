@@ -1,0 +1,56 @@
+{% extends 'diary/includes/template.html' %}
+{% load my_tags %}
+{% block content %}
+<div class="container px-4 py-5" id="featured-3"> <!-- container с текстами -->
+    <h2 class="pb-2 border-bottom text-center">Дневник</h2>
+    <p class="lead text-center">Все дневники</p>
+    <p>
+        <form action="{% url 'diary:diary_search' %}" method="get">
+            <input type="search" type="text" name="q" placeholder="Поиск Дневников">
+            <button type="submit">Найти</button>
+        </form>
+    </p>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col">
+            <div class="card text-center mb-3">
+                <img src="/static/image/diary.jpg" width="200" height="200" class="rounded mx-auto d-block" alt="...">
+                <div class="card-body">
+                    <a class="btn btn-primary" href="{% url 'diary:diary_create' %}" role="button">Создать дневник</a>
+                </div>
+            </div>
+        </div>
+        {% for object in object_list %}
+        <div class="col">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">{{ object.head }}</h5><!-- Заголовок карточки -->
+                    <p class="card-text">{{ object.content }}</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group btn-group-sm" role="group" aria-label="Small button group">
+                            <a class="btn btn-outline-primary" href="{% url 'diary:diary_detail' object.pk %}"
+                               role="button">
+                                Просмотр
+                            </a>
+                            <a class="btn btn-outline-primary" href="{% url 'diary:diary_update' object.pk %}"
+                               role="button">
+                                Редактирование
+                            </a>
+                            {% if user == object.owner %}
+                            <a class="btn btn-outline-primary" href="{% url 'diary:diary_delete' object.pk %}"
+                               role="button">
+                                Удаление
+                            </a>
+                            {% endif %}
+                            <a class="btn btn-outline-primary" href="{% url 'diary:entries_diary' object.id %}">
+                                Посмотреть все записи
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
