@@ -1,28 +1,23 @@
-# Используем официальный slim-образ Python 3.12
+# Указываем базовый образ
 FROM python:3.11-slim
 
+# Устанавливаем рабочую директорию в контейнере, по умолчанию /app
+WORKDIR /tf4
+RUN pip install poetry
 # Устанавливаем зависимости системы
-RUN apt-get update && \
-    apt-get install -y gcc libpq-dev && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/* \
-
-# Устанавливаем рабочую директорию в контейнере
-WORKDIR /app
+RUN apt-get update && apt-get install -y \
+    gcc \
+    libpq-dev \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # Копируем файл зависимостей в контейнер
-COPY requirements.txt .
+COPY requirements.txt ./
+COPY pyproject.toml poetry.lock ./
+
 # Устанавливаем зависимости Python
-RUN pip install --no-cache-dir -r requirements.txt
+RUN poetry config virtualenvs.create false && \
+    poetry install --no-root --only main
 
 # Копируем исходный код приложения в контейнер
 COPY . .
-
-# Создаем директорию для медиафайлов
-RUN mkdir -p /app/media
-
-# Пробрасываем порт, который будет использовать Django
-EXPOSE 8000
-
-# Команда для запуска приложения
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
